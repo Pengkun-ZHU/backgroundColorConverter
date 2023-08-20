@@ -74,9 +74,9 @@ if __name__ == '__main__':
     mask2 = cv.inRange( img, lowerb=lowerBound2, upperb=upperBound2 ) if lowerBound2 is not None else None
     mask = cv.bitwise_or(src1=mask1, src2=mask2) if mask2 else mask1
 
-    # myKernelSize = ( 3, 3 ) if img.size < 640 * 480 else ( 20, 20 )
-    # erode = cv2.erode( mask, kernel=cv.getStructuringElement( shape=cv.MORPH_ERODE, ksize=myKernelSize ) )
-    erode = cv2.erode( src=mask, kernel=None, iterations= 1 )
+    # myKernelSize = ( 3, 3 ) if img.size < 640 * 480 else ( 12, 12 )
+    erode = cv2.erode( mask, kernel=cv.getStructuringElement( shape=cv.MORPH_ERODE, ksize=myKernelSize, iterations=1 ) )
+    # erode = cv2.erode( src=mask, kernel=None, iterations= 1 )
     # erode = cv2.dilate(mask, kernel=cv.getStructuringElement(shape=cv.MORPH_ERODE, ksize=myKernelSize))
     # dilation = cv2.dilate( src=mask, kernel=None, iterations=1 )
 
