@@ -11,6 +11,7 @@ options:
   -t TOCOLOR, --toColor TOCOLOR
 
 Performance demo:
+
   Input image
   ![66](https://github.com/Pengkun-ZHU/NaiveBackgrounColorConverter/assets/56779575/62bbf5cd-0974-472f-8b0d-15ce7e14915c)
 
