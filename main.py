@@ -47,7 +47,7 @@ if __name__ == '__main__':
 
     cwd = os.getcwd()
     filepath = filename if os.path.isabs( filename ) else cwd + '/' + filename
-    outputpath = outdir if os.path.isabs( outdir ) else cwd + '/' + filename
+    outputpath = outdir if os.path.isabs( outdir ) else cwd + '/' + outdir
     img = cv.imread( filepath, cv.IMREAD_COLOR )
     assert img is not None, "file not exist"
     originImg = copy.deepcopy( img )
@@ -74,9 +74,10 @@ if __name__ == '__main__':
     mask2 = cv.inRange( img, lowerb=lowerBound2, upperb=upperBound2 ) if lowerBound2 is not None else None
     mask = cv.bitwise_or(src1=mask1, src2=mask2) if mask2 else mask1
 
-    myKernelSize = ( 3, 3 ) if img.size < 640 * 480 else ( 20, 20 )
-    # erode = cv2.erode( mask, kernel=cv.getStructuringElement( shape=cv.MORPH_ERODE, ksize=myKsize ) )
-    erode = cv2.dilate(mask, kernel=cv.getStructuringElement(shape=cv.MORPH_ERODE, ksize=myKernelSize))
+    # myKernelSize = ( 3, 3 ) if img.size < 640 * 480 else ( 20, 20 )
+    # erode = cv2.erode( mask, kernel=cv.getStructuringElement( shape=cv.MORPH_ERODE, ksize=myKernelSize ) )
+    erode = cv2.erode( src=mask, kernel=None, iterations= 1 )
+    # erode = cv2.dilate(mask, kernel=cv.getStructuringElement(shape=cv.MORPH_ERODE, ksize=myKernelSize))
     # dilation = cv2.dilate( src=mask, kernel=None, iterations=1 )
 
     for i in range( rows ):
@@ -87,7 +88,8 @@ if __name__ == '__main__':
     # cv.imshow( "mask", mask )
     # cv.imshow( "erode", erode )
     # cv.imshow( "dilate", dilation )
-    cv.imshow( "after", originImg )
-    cv.imwrite( outputpath, originImg )
-    cv.waitKey(0)
+    # cv.imshow( "after", originImg )
+    # cv.waitKey(0)
 
+    cv.imwrite( outputpath + '/' + "after.jpg", originImg )
+    print( f"Written image to {outputpath}, image's name is after.jpg" )
