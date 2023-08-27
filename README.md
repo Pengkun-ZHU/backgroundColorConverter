@@ -17,4 +17,5 @@ Performance demo:
 
 
   Output image                   
-  ![after](https://github.com/Pengkun-ZHU/NaiveBackgrounColorConverter/assets/56779575/91ca4e2c-214b-4c76-bfda-1d8c0f0f282f)
+  ![after](https://github.com/Pengkun-ZHU/NaiveBackgrounColorConverter/assets/56779575/24a9f64f-3fd0-4396-8c89-d61294cbeabd)
+
