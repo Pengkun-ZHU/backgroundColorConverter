@@ -37,9 +37,9 @@ if __name__ == '__main__':
         assert False, "Unsupported fromColor. Valid values include b/blue, r/red, w/white or uppercase counterpart."
 
     if toColorStr.casefold() == "red".casefold() or toColorStr.casefold() == 'r'.casefold():
-        toRGBIndex = ( 255, 0, 0 )
-    elif toColorStr.casefold() == "blue".casefold() or toColorStr.casefold() == 'b'.casefold():
         toRGBIndex = ( 0, 0, 255 )
+    elif toColorStr.casefold() == "blue".casefold() or toColorStr.casefold() == 'b'.casefold():
+        toRGBIndex = ( 255, 0, 0 )
     elif toColorStr.casefold() == "white".casefold() or toColorStr.casefold() == 'w'.casefold():
         toRGBIndex = ( 255, 255, 255 )
     else:
@@ -74,22 +74,21 @@ if __name__ == '__main__':
     mask2 = cv.inRange( img, lowerb=lowerBound2, upperb=upperBound2 ) if lowerBound2 is not None else None
     mask = cv.bitwise_or(src1=mask1, src2=mask2) if mask2 else mask1
 
-    # myKernelSize = ( 3, 3 ) if img.size < 640 * 480 else ( 12, 12 )
-    erode = cv2.erode( mask, kernel=cv.getStructuringElement( shape=cv.MORPH_ERODE, ksize=myKernelSize, iterations=1 ) )
-    # erode = cv2.erode( src=mask, kernel=None, iterations= 1 )
-    # erode = cv2.dilate(mask, kernel=cv.getStructuringElement(shape=cv.MORPH_ERODE, ksize=myKernelSize))
-    # dilation = cv2.dilate( src=mask, kernel=None, iterations=1 )
+    close = cv2.morphologyEx( mask, cv2.MORPH_CLOSE, kernel=cv.getStructuringElement(shape=cv.MORPH_ELLIPSE, ksize=(15, 15)), iterations=5 )
+    open = cv2.morphologyEx( src=close, op=cv.MORPH_OPEN, kernel=cv.getStructuringElement(shape=cv.MORPH_ELLIPSE,  ksize=(15, 15)),
+                             iterations=3 )  # Remove relatively small objects
+    # erode = cv2.erode( open, kernel=cv.getStructuringElement( shape=cv.MORPH_ELLIPSE, ksize=(3, 3) ), iterations=1 )
 
     for i in range( rows ):
         for j in range( cols ):
-            if erode[i][j] == 255:
+            if open[i][j] == 255:
                 originImg[i][j] = toRGBIndex
 
-    # cv.imshow( "mask", mask )
-    # cv.imshow( "erode", erode )
-    # cv.imshow( "dilate", dilation )
-    # cv.imshow( "after", originImg )
-    # cv.waitKey(0)
+    """ cv.imshow( "mask", mask )
+    cv.imshow( "erode", erode )
+    cv.imshow( "after", originImg )
+    cv.imshow( "open", open )
+    cv.waitKey(0) """
 
     cv.imwrite( outputpath + '/' + "after.jpg", originImg )
     print( f"Written image to {outputpath}, image's name is after.jpg" )
