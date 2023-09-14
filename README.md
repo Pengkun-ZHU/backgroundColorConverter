@@ -1,4 +1,4 @@
-# NaiveBackgrounColorConverter
+# NaiveBackgroundColorConverter
 
 Convert background color. 
 
