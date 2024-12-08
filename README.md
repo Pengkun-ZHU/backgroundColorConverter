@@ -10,3 +10,5 @@ options:
   -f FROMCOLOR, --fromColor FROMCOLOR
   -t TOCOLOR, --toColor TOCOLOR
 
+UPDATE#1: 
+This program supports watermark removal now. Simply specify the background color in -f --fromColor.
