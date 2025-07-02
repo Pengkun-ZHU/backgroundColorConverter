@@ -12,7 +12,7 @@ options:
 UPDATE 2024/12/08: 
 This program supports watermark removal now. Simply specify the background color in -f --fromColor.
 
-# This tool will be no longer maintained.
+# This tool is no longer maintained.
 For better effect, as well as proof to impure background, turn to [ForeSeg tool](https://github.com/Pengkun-ZHU/ForeSeg).
 
 
